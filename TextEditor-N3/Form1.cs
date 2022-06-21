@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace TextEditor_N3
@@ -27,7 +21,7 @@ namespace TextEditor_N3
                 ' ', '\r', '\n', ','
             };
 
-            string dictPath = @"C:\Users\nathancarmo027\Desktop\dict.txt";
+            string dictPath = "dict.txt";
             string dictContent = File.ReadAllText(dictPath);
             string[] dictWords = dictContent.ToLower().Split(separators);
             string[] editorWords = rtbEditor.Text.Split(separators);
@@ -68,13 +62,12 @@ namespace TextEditor_N3
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 rtbEditor.Text = File.ReadAllText(dlg.FileName);
-                DictCheck();
             }
         }
 
         private void adicionarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dictPath = @"C:\Users\nathancarmo027\Desktop\dict.txt";
+            string dictPath = "dict.txt";
 
             if (rtbEditor.Text.Length == 0)
             {
@@ -95,6 +88,11 @@ namespace TextEditor_N3
 
         private void rtbEditor_SelectionChanged(object sender, EventArgs e)
         {
+        }
+
+        private void verificarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DictCheck();
         }
     }
 }
