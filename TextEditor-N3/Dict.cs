@@ -42,7 +42,7 @@ namespace TextEditor_N3
             {
                 int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                 DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
-                string cellValue = Convert.ToString(selectedRow.Cells["word"].Value);
+                string cellValue = Convert.ToString(selectedRow.Cells["word"].Value).ToLower();
 
                 if (cellValue != "" && cellValue != null)
                 {
@@ -77,7 +77,7 @@ namespace TextEditor_N3
             {
                 int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                 DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
-                string wordDict = Convert.ToString(selectedRow.Cells["word"].Value);
+                string wordDict = Convert.ToString(selectedRow.Cells["word"].Value).ToLower();
 
                 if (wordDict != "" && wordDict != null)
                 {

@@ -23,9 +23,13 @@ namespace TextEditor_N3
 
         private void DictCheck()
         {
+            rtbEditor.SelectAll();
+            rtbEditor.SelectionBackColor = Color.Transparent;
+            rtbEditor.DeselectAll();
+
             string dictContent = File.ReadAllText(dictPath);
             string[] dictWords = dictContent.ToLower().Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            string[] editorWords = rtbEditor.Text.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            string[] editorWords = rtbEditor.Text.ToLower().Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < editorWords.Length; i++)
             {
