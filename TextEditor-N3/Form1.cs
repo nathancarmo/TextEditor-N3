@@ -34,7 +34,7 @@ namespace TextEditor_N3
                     int startIndex = 0;
                     while (startIndex < rtbEditor.TextLength)
                     {
-                        int wordStartIndex = rtbEditor.Find(editorWords[i], startIndex, RichTextBoxFinds.None);
+                        int wordStartIndex = rtbEditor.Find(editorWords[i], startIndex, RichTextBoxFinds.WholeWord);
 
                         if (wordStartIndex != -1)
                         {
@@ -86,8 +86,49 @@ namespace TextEditor_N3
             }
         }
 
-        private void rtbEditor_SelectionChanged(object sender, EventArgs e)
+        private void removerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string dictPath = "dict.txt";
+
+            if (rtbEditor.Text.Length == 0)
+            {
+                MessageBox.Show("Texto vazio. Favor preencher e selecionar a palavra que deseja adicionar.", "Erro");
+            }
+            else if (rtbEditor.SelectionLength == 0)
+            {
+                MessageBox.Show("Favor selecionar a palavra que deseja adicionar.", "Erro");
+            }
+            else
+            {
+                rtbEditor.Select(rtbEditor.SelectionStart, rtbEditor.SelectionLength);
+                string wordDict = rtbEditor.SelectedText;
+            }
+        }
+
+        private void adicionarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            string dictPath = "dict.txt";
+
+            if (rtbEditor.Text.Length == 0)
+            {
+                MessageBox.Show("Texto vazio. Favor preencher e selecionar a palavra que deseja adicionar.", "Erro");
+            }
+            else if (rtbEditor.SelectionLength == 0)
+            {
+                MessageBox.Show("Favor selecionar a palavra que deseja adicionar.", "Erro");
+            }
+            else
+            {
+                rtbEditor.Select(rtbEditor.SelectionStart, rtbEditor.SelectionLength);
+                string wordDict = rtbEditor.SelectedText;
+                File.AppendAllText(dictPath, wordDict + Environment.NewLine);
+                MessageBox.Show($"Palavra {wordDict} adicionada ao dicionário.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void removerToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+
         }
 
         private void verificarToolStripMenuItem_Click(object sender, EventArgs e)
