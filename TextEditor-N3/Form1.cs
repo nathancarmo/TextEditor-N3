@@ -32,7 +32,6 @@ namespace TextEditor_N3
                 if (dictWords.Contains(editorWords[i])) { }
                 else
                 {
-                    
                     while (startIndex < rtbEditor.TextLength)
                     {
                         int wordStartIndex = rtbEditor.Find(editorWords[i], startIndex, RichTextBoxFinds.WholeWord);
@@ -49,12 +48,9 @@ namespace TextEditor_N3
                         {
                             break;
                         }
-
-
                     }
                 }
             }
-
             rtbEditor.DeselectAll();
             startIndex = 0;
         }
@@ -116,16 +112,6 @@ namespace TextEditor_N3
             DictCheck();
         }
 
-        private void abrirToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            string dictContent = File.ReadAllText(dictPath);
-            string[] dictWords = dictContent.ToLower().Split(separators, StringSplitOptions.RemoveEmptyEntries);
-
-            Dict d1 = new Dict();
-            d1.ShowGrid(dictWords);
-            d1.Show();
-        }
-
         private void salvarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
@@ -140,6 +126,51 @@ namespace TextEditor_N3
                 sw.Close();
                 MessageBox.Show($"Arquivo salvo com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void abrirDictToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string dictContent = File.ReadAllText(dictPath);
+            string[] dictWords = dictContent.ToLower().Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+            Dict d1 = new Dict();
+            d1.ShowGrid(dictWords);
+            d1.Show();
+        }
+
+        private void desfazerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtbEditor.Undo();
+        }
+
+        private void refazerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtbEditor.Redo();
+        }
+
+        private void recortarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtbEditor.Cut();
+        }
+
+        private void copiarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtbEditor.Copy();
+        }
+
+        private void colarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtbEditor.Paste();
+        }
+
+        private void selecionarTudoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtbEditor.SelectAll();
+        }
+
+        private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Editor de texto desenvolvido em C# que utiliza dicionário de palavras.", "Desenvolvido por: Nathan / Marcos", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
