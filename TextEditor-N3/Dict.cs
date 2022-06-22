@@ -38,31 +38,66 @@ namespace TextEditor_N3
 
         private void removerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             if (dataGridView1.SelectedCells.Count > 0)
             {
-                int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
-                DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
-                string cellValue = Convert.ToString(selectedRow.Cells["word"].Value).ToLower();
-
-                if (cellValue != "" && cellValue != null)
+                if (dataGridView1.SelectedCells.Count == 1)
                 {
-                    string dictContent = File.ReadAllText(dictPath);
-                    string[] dictWords = dictContent.ToLower().Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                    int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
+                    DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
+                    string cellValue = Convert.ToString(selectedRow.Cells["word"].Value).ToLower();
 
-                    var newLines = dictWords.Select(line => Regex.Replace(line, cellValue, string.Empty, RegexOptions.IgnoreCase));
-                    File.WriteAllLines(dictPath, newLines);
+                    if (cellValue != "" && cellValue != null)
+                    {
+                        string dictContent = File.ReadAllText(dictPath);
+                        string[] dictWords = dictContent.ToLower().Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
-                    string newDictContent = File.ReadAllText(dictPath);
-                    string[] newDictWords = newDictContent.ToLower().Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                        string formCell = $@"\b{cellValue}\b";
 
-                    dataGridView1.Rows.Clear();
-                    RenewGrid(newDictWords);
+                        var newLines = dictWords.Select(line => Regex.Replace(line, formCell, string.Empty, RegexOptions.None));
+                        File.WriteAllLines(dictPath, newLines);
 
-                    MessageBox.Show($"Palavra {cellValue} removida com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        string newDictContent = File.ReadAllText(dictPath);
+                        string[] newDictWords = newDictContent.ToLower().Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+                        dataGridView1.Rows.Clear();
+                        RenewGrid(newDictWords);
+
+                        MessageBox.Show($"Palavra {cellValue} removida com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Selecione um valor válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show($"Selecione um valor válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    int selectedRows = dataGridView1.SelectedCells.Count;
+
+                    for (int i = 0; i <= selectedRows; i++)
+                    {
+                        DataGridViewRow selectedRow = dataGridView1.Rows[0];
+                        string cellValue = Convert.ToString(selectedRow.Cells["word"].Value).ToLower();
+
+                        if (cellValue != "" && cellValue != null)
+                        {
+                            string dictContent = File.ReadAllText(dictPath);
+                            string[] dictWords = dictContent.ToLower().Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+                            string formCell = $@"\b{cellValue}\b";
+
+                            var newLines = dictWords.Select(line => Regex.Replace(line, formCell, string.Empty, RegexOptions.None));
+                            File.WriteAllLines(dictPath, newLines);
+
+                            string newDictContent = File.ReadAllText(dictPath);
+                            string[] newDictWords = newDictContent.ToLower().Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+                            dataGridView1.Rows.Clear();
+                            dataGridView1.Refresh();
+                            RenewGrid(newDictWords);
+                        }
+                    }
+                    MessageBox.Show("Todas as palavras selecionadas foram removidas com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
