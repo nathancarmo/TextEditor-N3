@@ -26,3 +26,4 @@ Clique direito na palavra e adicionar.
 Com a palavra no editor, selecione a palavra e clique em adicionar.
 
 ![image](https://user-images.githubusercontent.com/52978308/176009287-9c1e7f4d-a5fd-4e88-b44f-119599f50fa8.png)
+![image](https://user-images.githubusercontent.com/52978308/176009468-533ecb00-31be-4c48-8fc4-7ae5baeadd06.png)
