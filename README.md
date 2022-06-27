@@ -1,6 +1,6 @@
 # Editor de texto - NoteDict
 
-Funcionalidade diferencial: utilização de dicionário para adicionar/remover palavras.
+Diferencial: utilização de dicionário para adicionar/remover palavras.
 
 # Cadastro de palavras:
 
